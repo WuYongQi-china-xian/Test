@@ -2,8 +2,7 @@ kali官网 https://www.kali.org/
 VirturalBox https://download.virtualbox.org/
 解决虚拟机只能创建32位的问题 https://blog.csdn.net/yongf2014/article/details/49282333
 kali系统更新命令 apt-get update apt-get upgrade
-kali系统更新源
+配置kali系统更新源
 http://blog.csdn.net/gmnet/article/details/14471835
 http://blog.sina.com.cn/s/blog_6d0d6cff0101ddjb.html
---------------配置kali更新源-----------------------------
-vim /etc/apt/sources.list 在内容末尾插入上方网址中的国内的更新源
+metasploit 的启动命令 service metasploit start
