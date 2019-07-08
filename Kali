@@ -5,4 +5,8 @@ kali系统更新命令 apt-get update apt-get upgrade
 配置kali系统更新源
 http://blog.csdn.net/gmnet/article/details/14471835
 http://blog.sina.com.cn/s/blog_6d0d6cff0101ddjb.html
-metasploit 的启动命令 service metasploit start
+--------------------------
+metasploit 的启动命令 
+service postgresql start 
+service metasploit start
+------------------------------
