@@ -1,0 +1,106 @@
+什么是Junit?
+Junit是xUnit的一个子集，在c++,paython,java语言中测试框架的名字都不相同
+xUnit是一套基于测试驱动开发的测试框架
+其中的断言机制：将程序预期的结果与程序运行的最终结果进行比对，确保对结果的可预知性
+java所用的测试工具是Junit,Junit不需要去网上下载，在ecliplse中有：
+---------------------------------------------小的运行例子---------------------------------
+
+package com.fulisha.textjunit;
+ 
+public class Calculate {
+public int add(int a,int b){
+	return a+b;
+}
+public int substract(int a , int b){
+	return a-b;
+}
+public int cheng(int a,int b){
+	return a*b;
+}
+public int chu(int a, int b){
+	return a/b;
+}
+ 
+}
+-----------------------------------------------------------------------------------------------
+
+package com.fulisha.textjunit;
+ 
+import static org.junit.Assert.*;
+ 
+import org.junit.Test;
+ 
+public class CalculateTest {
+ 
+	@Test
+	public void testAdd(){
+		assertEquals(6,new Calculate().add(3, 3));
+	}
+	
+	@Test
+	public void testsubstract(){
+		assertEquals(2,new Calculate().substract(5, 3));
+	}
+	
+	@Test
+	public void testcheng(){
+		assertEquals(15,new Calculate().cheng(5, 3));
+	}
+	@Test
+	public void testchu(){
+		assertEquals(2,new Calculate().chu(6, 3));
+	}
+
+--------------------------------------------------------------------------关于Junit运行流程
+
+package com.fulisha.textjunit;
+ 
+import static org.junit.Assert.*;
+ 
+import org.junit.After;
+import org.junit.AfterClass;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
+ 
+public class JunitFlowText {
+ 
+	@BeforeClass
+	public static void setUpBeforeClass() throws Exception {
+	System.out.println("this is beforeClasss....");
+	}
+ 
+	@AfterClass
+	public static void tearDownAfterClass() throws Exception {
+		System.out.println("this is afterClasss....");
+	}
+ 
+	@Before
+	public void setUp() throws Exception {
+		System.out.println("this is brfore....");
+	}
+ 
+	@After
+	public void tearDown() throws Exception {
+		System.out.println("this is after....");
+	}
+ 
+	@Test
+	public void test1() {
+		System.out.println("this is test1....");
+	}
+	@Test
+	public void test2() {
+		System.out.println("this is test2....");
+	}
+
+-----------------------------------------------------------------运行结果
+this is beforeClasss....
+this is brfore....
+this is test1....
+this is after....
+this is brfore....
+this is test2....
+this is after....
+this is afterClasss....
+参考连接：https://blog.csdn.net/fulishafulisha/article/details/80158392
