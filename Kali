@@ -2,9 +2,33 @@ kali官网 https://www.kali.org/
 VirturalBox https://download.virtualbox.org/
 解决虚拟机只能创建32位的问题 https://blog.csdn.net/yongf2014/article/details/49282333
 kali系统更新命令 apt-get update apt-get upgrade
-配置kali系统更新源
-http://blog.csdn.net/gmnet/article/details/14471835
-http://blog.sina.com.cn/s/blog_6d0d6cff0101ddjb.html
+-------------------------------------------------------------------------
+配置kali系统更新源 https://blog.csdn.net/wenliheng0/article/details/77450319
+
+#中科大
+deb http://mirrors.ustc.edu.cn/kali kali-rolling main non-free contrib
+deb-src http://mirrors.ustc.edu.cn/kali kali-rolling main non-free contrib
+
+#浙大
+deb http://mirrors.zju.edu.cn/kali kali-rolling main contrib non-free
+deb-src http://mirrors.zju.edu.cn/kali kali-rolling main contrib non-free
+
+#东软大学
+deb http://mirrors.neusoft.edu.cn/kali kali-rolling/main non-free contrib
+deb-src http://mirrors.neusoft.edu.cn/kali kali-rolling/main non-free contrib
+
+#重庆大学
+deb http://http.kali.org/kali kali-rolling main non-free contrib
+deb-src http://http.kali.org/kali kali-rolling main non-free contrib
+
+#官方源
+#deb http://http.kali.org/kali kali-rolling main non-free contrib
+#deb-src http://http.kali.org/kali kali-rolling main non-free contrib
+--------------------- 
+安装Google拼音
+apt-get install fcitx-googlepinyin
+-----------------------------------
+如果安装过程中提示依赖关系有问题：apt-get install -f
 --------------------------
 metasploit 的启动命令 
 service postgresql start 
