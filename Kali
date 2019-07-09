@@ -37,6 +37,7 @@ msfconsole
 ------------------------------
 kali Linux中常用的代理工具
 Mitmproxy 中间人攻击工具主要拦截请求伪造请求
+mitmproxy -p 端口 拦截http请求的端口。使用此命令需要配置浏览器的代理
 
 Burp Suite
 Owasp-zap
