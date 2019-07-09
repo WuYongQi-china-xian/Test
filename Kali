@@ -60,5 +60,6 @@ Http/Https,从而改变cookies和表单字段等项目。它包括一个web通�
 在终端输入paros启动终端。然后在tools下面设置代理。浏览器也需要设置代理。
 Proxystrike 插件是代理工具。
 Vega
-webscarab
+webscarab 是一款代理软件，包括http代理，网络爬行，网络蜘蛛，会话id分析，自动脚本接口，模糊测试工具，web格式的编码和解码，web服务描述
+语言和soap解析器等功能模块。它是基于GNU协议的，使用java编码，是webgoat中所使用的工具之一。
 ------------------------------------
