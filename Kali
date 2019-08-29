@@ -71,3 +71,4 @@ webscarab 是一款代理软件，包括http代理，网络爬行，网络蜘蛛
 5.使用sqlmap工具开始进行sql注入检测。
 6.在kali终端中，输入sqlmap -u 目标网址 --dbs --current-user
 7.在kali终端中，输入sqlmap -u 目标网址 --tables
+8.在kali终端中，输入sqlmap -u 目标网址 -T 表名 --columns
