@@ -81,3 +81,4 @@ google hack之查询语法 https://www.cnblogs.com/xuanhun/p/3910134.html
 搜索url中有8080端口且网页题目中有Dashboard [Jenkins]字样的网站 inurl:8080 intiltle:"Dashboard [Jenkins]"
 寻找安装了xampp的主机：inurl:"xampp/index" intext:"XAMPP for Windows"
 寻找phpadmin不用验证或者弱口令管理页面，通过mysql的root权限插入一句话木马提权，获取服务器管理权限。
+kali终端访问mysql数据库 mysql -u 用户名 -h 主机ip -p 密码
