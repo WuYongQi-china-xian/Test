@@ -96,3 +96,14 @@ windows启动mstsc 输入服务器ip xxx和123456 登录服务器
 关于google hack database网址 https://www.exploit-db.com/google-hacking-database
 ---------------------------------------------------------------------------------
 开源的社会工程学套件： https://github.com/trustedsec/social-engineer-toolkit
+1.终端启动setoolkit
+2.选择1）Social Enineering Attacks
+  鱼叉式钓鱼攻击（spear-Phishing Attack）
+  网站攻击（Website Attack）
+  介质感染攻击（Infectious Media Generator）
+  群发邮件攻击（Mass Mailer Attack）
+  基于Arduino的攻击（Arduino-Based Attack）
+  短信欺骗攻击（SMS Spoofing Attack）
+  无线接入点攻击（wireless Access Point Attack）
+  二维码攻击（QRCode Generator Attack）
+  powershell攻击（Powershell Attack)
