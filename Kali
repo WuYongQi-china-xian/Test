@@ -108,6 +108,9 @@ windows启动mstsc 输入服务器ip xxx和123456 登录服务器
   二维码攻击（QRCode Generator Attack）
   powershell攻击（Powershell Attack)
 3.选择1） 可以发送一封钓鱼邮件，对有漏洞电脑进行攻击，这种攻击需要知道对方的电脑操作系统、版本和软件版本信息。（如果配置邮箱攻击时出现了错误可以使用return查看详细信息）参考：https://www.cnblogs.com/student-programmer/p/6728924.html
-QQ邮箱的POP3与SMTP服务器是什么？
+QQ邮箱的SMTP服务器设置
 邮箱	POP3服务器（端口995）	SMTP服务器（端口465或587）
 qq.com	pop.qq.com	smtp.qq.com
+https://service.mail.qq.com/cgi-bin/help?subtype=1&&id=28&&no=331
+https://service.mail.qq.com/cgi-bin/help?subtype=1&&no=166&&id=28
+https://service.mail.qq.com/cgi-bin/help?subtype=1&no=167&id=28
