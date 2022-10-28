@@ -1,0 +1,104 @@
+stages:
+  - stage: 代码扫描
+    tasks:
+      - task: stream_manager代码扫描
+        cmds:
+          - plugin: pipeline_start
+            params:
+              pipeline: '937159'
+              sync: true
+              branch: $SCAN_BRANCH
+              trigger_base: branch
+            label: 启动流水线
+        if: ${MR_COMPONENTS} ~= stream_manager
+    if: $IS_CODEDOG_USE=="use"
+version: '2.0'
+worker:
+  strategy: idle_first
+  label: JOB_MATRIX_DEVCLOUD
+  tools: []
+  docker:
+    image: csighub.tencentyun.com/cicd/tlinux2.2-bridge-tcloud-underlay:TRTC
+env:
+  IS_CODEDOG_USE:
+    value: use
+    type: select
+    option: use;unuse
+  SCAN_BRANCH:
+    value: ''
+    type: string
+    require: true
+  MR_COMPONENTS:
+    value: ''
+    type: multi-select
+    require: true
+    option: media_master;live_tlss;source_interface;source_strategyer;customer_task_center;media_conf;source_master;source_conf;media_interface;source_dispatch_agent;server_manager;stat_gateway;stream_manager;multi_bitrate_adaptive
+finally:
+  success:
+    cmds:
+      - plugin: qci_comment
+        params:
+          text_mode: append
+          text: MR涉及组件：${MR_COMPONENTS}
+        label: 添加任务结果备注
+  failure:
+    cmds:
+      - plugin: PIPELINE_FAIL_AUTO_ANALYSIS
+        params:
+          check_body: "if \"live_tlss代码扫描\" == fail_task_name.lower():\n    scan_result\
+          \ = check_access_control.get_child_pipeline_result_by_pipelineidvalue(child_pipeline_id='936875',\
+          \ child_pipeline_result_var_name='fail_check_result', task_id=fail_task_id)\n\
+          \    fail_check_result_list.append(scan_result)\n    \nelif \"stat_gateway代码扫描\"\
+          \ in fail_task_name:\n    scan_result = check_access_control.get_child_pipeline_result_by_pipelineidvalue(child_pipeline_id='937179',\
+          \ child_pipeline_result_var_name='fail_check_result', task_id=fail_task_id)\n\
+          \    fail_check_result_list.append(scan_result)\n        \nelif \"stream_manager代码扫描\"\
+          \ in fail_task_name:\n    scan_result = check_access_control.get_child_pipeline_result_by_pipelineidvalue(child_pipeline_id='937159',\
+          \ child_pipeline_result_var_name='fail_check_result', task_id=fail_task_id)\n\
+          \    fail_check_result_list.append(scan_result)\n    \nelif \"multi_bitrate_adaptive代码扫描\"\
+          \ in fail_task_name:\n    scan_result = check_access_control.get_child_pipeline_result_by_pipelineidvalue(child_pipeline_id='937145',\
+          \ child_pipeline_result_var_name='fail_check_result', task_id=fail_task_id)\n\
+          \    fail_check_result_list.append(scan_result)\n\nelif \"media_master代码扫描\"\
+          \ in fail_task_name:\n    scan_result = check_access_control.get_child_pipeline_result_by_pipelineidvalue(child_pipeline_id='937138',\
+          \ child_pipeline_result_var_name='fail_check_result', task_id=fail_task_id)\n\
+          \    fail_check_result_list.append(scan_result)\n\nelif \"source_strategyer代码扫描\"\
+          \ in fail_task_name:\n    scan_result = check_access_control.get_child_pipeline_result_by_pipelineidvalue(child_pipeline_id='937094',\
+          \ child_pipeline_result_var_name='fail_check_result', task_id=fail_task_id)\n\
+          \    fail_check_result_list.append(scan_result)\n\nelif \"customer_task_center代码扫描\"\
+          \ in fail_task_name:\n    scan_result = check_access_control.get_child_pipeline_result_by_pipelineidvalue(child_pipeline_id='937142',\
+          \ child_pipeline_result_var_name='fail_check_result', task_id=fail_task_id)\n\
+          \    fail_check_result_list.append(scan_result)\n\nelif \"media_conf代码扫描\"\
+          \ in fail_task_name:\n    scan_result = check_access_control.get_child_pipeline_result_by_pipelineidvalue(child_pipeline_id='937131',\
+          \ child_pipeline_result_var_name='fail_check_result', task_id=fail_task_id)\n\
+          \    fail_check_result_list.append(scan_result)\n    \n\nelif \"source_interface代码扫描\"\
+          \ in fail_task_name:\n    scan_result = check_access_control.get_child_pipeline_result_by_pipelineidvalue(child_pipeline_id='937124',\
+          \ child_pipeline_result_var_name='fail_check_result', task_id=fail_task_id)\n\
+          \    fail_check_result_list.append(scan_result)\n    \n\nelif \"source_conf代码扫描\"\
+          \ in fail_task_name:\n    scan_result = check_access_control.get_child_pipeline_result_by_pipelineidvalue(child_pipeline_id='937129',\
+          \ child_pipeline_result_var_name='fail_check_result', task_id=fail_task_id)\n\
+          \    fail_check_result_list.append(scan_result)\n\nelif \"media_interface代码扫描\"\
+          \ in fail_task_name:\n    scan_result = check_access_control.get_child_pipeline_result_by_pipelineidvalue(child_pipeline_id='937126',\
+          \ child_pipeline_result_var_name='fail_check_result', task_id=fail_task_id)\n\
+          \    fail_check_result_list.append(scan_result)\n\nelif \"source_dispatch_agent代码扫描\"\
+          \ in fail_task_name:\n    scan_result = check_access_control.get_child_pipeline_result_by_pipelineidvalue(child_pipeline_id='937122',\
+          \ child_pipeline_result_var_name='fail_check_result', task_id=fail_task_id)\n\
+          \    fail_check_result_list.append(scan_result)\n\nelif \"server_manager代码扫描\"\
+          \ in fail_task_name:\n    scan_result = check_access_control.get_child_pipeline_result_by_pipelineidvalue(child_pipeline_id='937182',\
+          \ child_pipeline_result_var_name='fail_check_result', task_id=fail_task_id)\n\
+          \    fail_check_result_list.append(scan_result)\n\nelif \"source_master代码扫描\"\
+          \ in fail_task_name:\n    scan_result = check_access_control.get_child_pipeline_result_by_pipelineidvalue(child_pipeline_id='937132',\
+          \ child_pipeline_result_var_name='fail_check_result', task_id=fail_task_id)\n\
+          \    fail_check_result_list.append(scan_result)\n\nelse:\n    other_result\
+          \ = f\"非门禁问题-需定位《{fail_task_name}》问题归属：{QUESTION_CATEGORY}\"\n    fail_check_result_list.append(other_result)"
+          fail_check_result: fail_check_result
+          fail_class_result: fail_class_result
+      - plugin: qci_comment
+        params:
+          text: 'MR涉及组件：${MR_COMPONENTS}
+
+          问题分类：${fail_check_result}'
+          text_mode: append
+setup:
+  - ''
+code_checkout_type: CHECKOUT_ALL
+manual: {}
+maximum_builds: 1
