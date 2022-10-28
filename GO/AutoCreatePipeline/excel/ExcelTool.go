@@ -7,8 +7,6 @@ import (
 	"os"
 )
 
-//type Cells map[string]any
-
 type Excel struct {
 	ExcelName  string
 	ExcelPath  string
@@ -44,15 +42,14 @@ func WriteExcel(excel Excel) {
 	log.Println(fmt.Sprintf("save %s/%s success", excel.ExcelPath, excel.ExcelName))
 }
 
-func CellsContains(array []string, val string) (index int) {
-	index = -1
-	for i := 0; i < len(array); i++ {
-		if array[i] == val {
-			index = i
-			return
-		}
+func GetZuoBiao(lieNum, hangNum int) string {
+	zuobiao, err := excelize.CoordinatesToCellName(lieNum, hangNum)
+	if err != nil {
+		log.Fatal(fmt.Sprintf("(%s,%s) to CellName failed", lieNum, hangNum))
+		panic(fmt.Sprintf("(%s,%s) to CellName failed", lieNum, hangNum))
 	}
-	return
+	log.Println(fmt.Sprintf("zuobiao:%s (%s,%s)", zuobiao, lieNum, hangNum))
+	return zuobiao
 }
 
 func ReadToExcel(method string, excel Excel) Excel {
@@ -90,11 +87,7 @@ func ReadToExcel(method string, excel Excel) Excel {
 			for _, row := range rows {
 				for _, colCell := range row {
 					// 行号列号转化为坐标
-					zuobiao, err := excelize.CoordinatesToCellName(i, j)
-					if err != nil {
-						log.Fatal(fmt.Sprintf("(%s,%s) to CellName failed", i, j))
-						panic(fmt.Sprintf("(%s,%s) to CellName failed", i, j))
-					}
+					zuobiao := GetZuoBiao(i, j)
 					log.Println(fmt.Sprintf("colCell:%s zuobiao:%s (%s,%s)", colCell, zuobiao, i, j))
 					cells[zuobiao] = colCell
 					//列号自加，横行读取
