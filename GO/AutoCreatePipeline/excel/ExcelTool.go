@@ -14,6 +14,9 @@ type Excel struct {
 }
 type Excels []Excel
 
+/*
+将结构体写入excel
+*/
 func WriteExcel(excel Excel) {
 	if excel.ExcelPath != "" {
 		err := os.MkdirAll(excel.ExcelPath, os.ModePerm)
@@ -52,6 +55,9 @@ func GetZuoBiao(lieNum, hangNum int) string {
 	return zuobiao
 }
 
+/*
+将excel的信息转为结构体
+*/
 func ReadToExcel(method string, excel Excel) Excel {
 	f, err := excelize.OpenFile(fmt.Sprintf("%s/%s", excel.ExcelPath, excel.ExcelName))
 	if err != nil {
@@ -80,7 +86,7 @@ func ReadToExcel(method string, excel Excel) Excel {
 			// 获取 Sheet 上所有单元格
 			rows, err := f.GetRows(sheetName)
 			if err != nil {
-				log.Println(fmt.Sprintf("read rows by sheetName %s failed", sheetName))
+				log.Fatal(fmt.Sprintf("read rows by sheetName %s failed", sheetName))
 			}
 			// i代表列号,j代表行号
 			i, j := 1, 1
@@ -103,4 +109,20 @@ func ReadToExcel(method string, excel Excel) Excel {
 	}
 	log.Println(fmt.Sprintf("excel: %v", excel))
 	return excel
+}
+
+func ReadExcel(excelPath, excelName, sheetName string) ([][]string, *excelize.File) {
+	f, err := excelize.OpenFile(fmt.Sprintf("%s/%s", excelPath, excelName))
+	if err != nil {
+		log.Fatal(err)
+		panic(fmt.Sprintf("read %s/%s failed", excelPath, excelName))
+	}
+	log.Println(fmt.Sprintf("read %s/%s success", excelPath, excelName))
+	// 获取 Sheet 上所有单元格
+	rows, err := f.GetRows(sheetName)
+	if err != nil {
+		log.Fatal(fmt.Sprintf("read rows by sheetName %s failed", sheetName))
+	}
+	log.Println(fmt.Sprintf("rows:%v", rows))
+	return rows, f
 }

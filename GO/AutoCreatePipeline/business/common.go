@@ -1,6 +1,7 @@
 package business
 
 import (
+	"encoding/json"
 	"fmt"
 	"log"
 	"regexp"
@@ -32,4 +33,19 @@ func IsReg(reg, content string) bool {
 	} else {
 		return false
 	}
+}
+
+func JsonToMap(str string) map[string]string {
+	//var strJson bytes.Buffer
+	//_ = json.Indent(&strJson, []byte(str), "", "    ")
+	//log.Println(fmt.Sprintf("strJson:%s", strJson.String()))
+	var tempMap map[string]string
+
+	err := json.Unmarshal([]byte(str), &tempMap)
+
+	if err != nil {
+		panic(err)
+	}
+
+	return tempMap
 }

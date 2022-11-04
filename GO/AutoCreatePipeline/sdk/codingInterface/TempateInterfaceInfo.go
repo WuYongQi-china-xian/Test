@@ -1,12 +1,13 @@
 package codingInterface
 
 /*
+根据模板id获取模板信息
 Url="http://tencent.coding.woa.com/api/qci/rest-api/template/22868"
 Method = "GET"
 headers = {"Authorization": "token xxxxx"}
- */
+*/
 
-type TemplateReq struct {}
+type TemplateReq struct{}
 type TemplateResp struct {
 	ID                 int           `json:"id"`
 	Name               string        `json:"name"`
@@ -115,7 +116,8 @@ type TemplateResp struct {
 }
 
 /*
-Url="http://tencent.coding.woa.com/api/qci/rest-api/pipeline/798430"
+根据流水线配置id获取流水线配置信息
+Url="http://tencent.coding.woa.com/api/qci/rest-api/pipeline/{PipelineConfigID}"
 Method = "GET"
 headers = {"Authorization": "token xxxxx"}
 */
@@ -181,11 +183,11 @@ type PipelineConfigResp struct {
 				Image string `json:"image"`
 			} `json:"docker"`
 		} `json:"worker"`
-		Env map[string] struct{
-				Value  string `json:"value"`
-				Type   string `json:"type"`
-				Desc   string `json:"desc"`
-				Option string `json:"option"`
+		Env map[string]struct {
+			Value  string `json:"value"`
+			Type   string `json:"type"`
+			Desc   string `json:"desc"`
+			Option string `json:"option"`
 		} `json:"env"`
 		Trigger struct {
 			Tags struct {

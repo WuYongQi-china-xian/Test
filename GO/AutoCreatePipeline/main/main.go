@@ -1,8 +1,6 @@
 package main
 
-import (
-	"AutoCreatePipeline/cmd"
-)
+import "AutoCreatePipeline/cmd"
 
 func main() {
 	cmd.Execute()

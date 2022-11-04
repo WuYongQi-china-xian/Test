@@ -1,0 +1,62 @@
+stages:
+- stage: 参数解析
+  tasks:
+  - task: 解析制品参数
+    cmds:
+    - plugin: cle-pipeline-argparser
+      params: {}
+    - plugin: cmds
+      params:
+        cmds:
+        - '# 用于处理触发编译 base-lms base-tms base-uis base-ltms base-ltms-transcoder base-lms-transcoder
+          的参数转换为 base'
+        - python3 qci_params.py
+- stage: 打包归档
+  tasks:
+  - task: lms
+    cmds:
+    - plugin: pipeline_start
+      params:
+        pipeline: '462333'
+        sync: true
+        envs: []
+        filter_sync_envs: true
+        sync_envs_regex:
+        - /.*_VERSION/
+        trigger_base: branch
+        branch: $lms_branch
+      retry_times: 2
+    if: $lms_trigger = "true"
+- stage: 汇总版本
+  tasks:
+  - task: 新任务
+    cmds:
+    - plugin: cle-pipeline-argparser
+      params:
+        only_merge_cle_versions: true
+version: '2.0'
+worker:
+  label: 'JOB_MATRIX_DEVCLOUD '
+  language: qci_common
+env:
+  CLE_ART_NAME:
+    value: ''
+    type: multi-select
+    desc: 选择需要编译归档的制品列表 tkex-开头的为容器化后的组件
+    option: lms;base-lms;lms-app;tms;base-tms;tms-app;uis-app;uis;base-uis;ltms;recorder-app;base-ltms;recording-uploader;recording-worker;tkex-recorder;base-ltms-transcoder;ltms-transcoder;cloud-storage-service;media-transcoder;cloud-task-worker;app-ltms-transcoder;app-lms-transcoder;lms-transcoder;base-lms-transcoder
+  CLE_ART_BRANCH: ''
+  CLE_ART_BRANCH_DEF:
+    value: ''
+    type: string
+    desc: master 未选中组件编译使用的分支，不填则表示未选中组件不参与编译
+  CLE_ART_VERSION: ''
+  CLE_ART_VERSION_DEF: ''
+code_checkout_type: CHECKOUT_ONLY_BRANCH
+mr:
+  action: []
+  is_local_mr: false
+  is_block_mr: false
+  auto_cancel_same_merge_request: false
+is_auto_interrupt: false
+is_auto_cancel: false
+maximum_builds: 5

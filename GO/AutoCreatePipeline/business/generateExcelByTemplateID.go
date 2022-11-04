@@ -9,12 +9,12 @@ import (
 
 func GenerateExcel(templateIdList []string, token string) {
 	var generateExcel excel.Excel
-	root_path, err := os.Getwd()
+	rootPath, err := os.Getwd()
 	if err != nil {
 		log.Fatal("get current path failed")
 	}
-	generateExcel.ExcelPath = fmt.Sprintf("%s/build", root_path)
-	generateExcel.ExcelName = "自动生成流水线信息收集表.xlsx"
+	generateExcel.ExcelPath = fmt.Sprintf("%s/build", rootPath)
+	generateExcel.ExcelName = InOutExcelName
 	// 记录生成流水线ID在sheet页中的坐标
 	sheetNamesMap := make(map[string]map[string]any)
 	//记录环境变量写完后的列值
@@ -28,7 +28,11 @@ func GenerateExcel(templateIdList []string, token string) {
 			cellsMap[zuobiao] = envKeyList[i]
 		}
 		zuobiao := excel.GetZuoBiao(lieBiao+1, 1)
-		cellsMap[zuobiao] = "生成流水线ID"
+		cellsMap[zuobiao] = GudingZiDuan1
+		zuobiao = excel.GetZuoBiao(lieBiao+2, 1)
+		cellsMap[zuobiao] = GudingZiDuan2
+		zuobiao = excel.GetZuoBiao(lieBiao+3, 1)
+		cellsMap[zuobiao] = GudingZiDuan3
 		sheetNamesMap[templateId] = cellsMap
 		// 列标归0
 		lieBiao = 0

@@ -2,6 +2,7 @@ package business
 
 import (
 	sdk "AutoCreatePipeline/sdk"
+	"AutoCreatePipeline/sdk/codingInterface"
 	"fmt"
 	"log"
 	"strconv"
@@ -26,4 +27,21 @@ func GetEnvKey(templateID, token string) []string {
 		envNameArray = append(envNameArray, envName)
 	}
 	return envNameArray
+}
+
+/*
+根据工蜂url获取repo_id
+repoName: "http://git.woa.com/wolfwwu/WorkerBeeToGithub.git"
+projectId: coding项目id 2197
+token: coding令牌
+*/
+func GetRepoId(projectId, repoName, token string) int {
+	var repoReq codingInterface.ReposReq
+	repoReq.RepoName = repoName
+	repoReq.Page = 1
+	repoReq.PageSize = 200
+	ReposRespInfo := sdk.GetReposInfo(repoReq, projectId, token)
+	repoId := ReposRespInfo.Repos[0].ID
+	log.Println(fmt.Sprintf("RepoID:%v", repoId))
+	return repoId
 }
