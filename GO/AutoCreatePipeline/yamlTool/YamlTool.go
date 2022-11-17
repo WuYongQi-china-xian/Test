@@ -163,7 +163,15 @@ func GetBatchScanTemplateYml(compTaskIdMaps map[string]string) {
 	if err != nil {
 		log.Fatal("Error while Marshaling. %v", err)
 	}
-	outputFile := fmt.Sprintf("%s/build/newBatchScanTemplate.yaml", root_path)
+	// 文件夹不存在创建文件夹
+	outputPath := fmt.Sprintf("%s/build", root_path)
+	err = os.MkdirAll(outputPath, os.ModePerm)
+	if err != nil {
+		log.Fatal(err)
+		panic(fmt.Sprintf("create path %s failed", outputPath))
+	}
+	log.Println(fmt.Sprintf("create path %s success", outputPath))
+	outputFile := fmt.Sprintf("%s/newBatchScanTemplate.yaml", outputPath)
 	// 将yaml数据写入文件
 	err = ioutil.WriteFile(outputFile, bstYaml, 0644)
 	if err != nil {
@@ -261,13 +269,14 @@ func GetBatchPackTemplateYml(compTaskIdMaps map[string]string) {
 	var ptcs []PackTaskCmd
 	// 将词典中的循环写入细化后的strut，方便后面用来重新赋值给读出来的的struct
 	for comp, pipelineid := range compTaskIdMaps {
+
 		pt.Task = fmt.Sprintf("%s代码编译", comp)
-		pt.If = fmt.Sprintf("$%s = \"true\"", comp)
+		pt.If = fmt.Sprintf("$%s_trigger = \"true\"", strings.Replace(comp, "-", "_", -1))
 		ptc.RetryTimes = 2
 		ptc.Plugin = "pipeline_start"
 		psp.Pipeline = pipelineid
 		psp.Sync = true
-		psp.Branch = fmt.Sprintf("$%s", comp)
+		psp.Branch = fmt.Sprintf("$%s_branch", strings.Replace(comp, "-", "_", -1))
 		psp.TriggerBase = "branch"
 		psp.SyncEnvsRegex = []string{"/.*_VERSION/"}
 		psp.FilterSyncEnvs = true
@@ -287,7 +296,15 @@ func GetBatchPackTemplateYml(compTaskIdMaps map[string]string) {
 	if err != nil {
 		log.Fatal("Error while Marshaling. %v", err)
 	}
-	outputFile := fmt.Sprintf("%s/build/newBatchPackTemplate.yaml", root_path)
+	// 文件夹不存在创建文件夹
+	outputPath := fmt.Sprintf("%s/build", root_path)
+	err = os.MkdirAll(outputPath, os.ModePerm)
+	if err != nil {
+		log.Fatal(err)
+		panic(fmt.Sprintf("create path %s failed", outputPath))
+	}
+	log.Println(fmt.Sprintf("create path %s success", outputPath))
+	outputFile := fmt.Sprintf("%s/newBatchPackTemplate.yaml", outputPath)
 	// 将yaml数据写入文件
 	err = ioutil.WriteFile(outputFile, bstYaml, 0644)
 	if err != nil {

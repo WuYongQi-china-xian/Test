@@ -35,7 +35,8 @@ func createPipeline(name, token string, templateId, repoId, projectId int, userE
 	pipelineReq.UserEnv = userEnv
 	pipelineInfo := sdk.CreatePipeline(pipelineReq, token)
 	pipelineId := pipelineInfo.ID
-	pipelineUrl := fmt.Sprintf("%s/p/PipeLineDemo/ci/job/%s/build/current", sdk.CodingRootApi, strconv.Itoa(pipelineId))
+	projectName := pipelineInfo.ProjectInfo.Name
+	pipelineUrl := fmt.Sprintf("%s/p/%s/ci/job/%s/build/current", sdk.CodingRootApi, projectName, strconv.Itoa(pipelineId))
 	log.Println(fmt.Sprintf("pipelineUrl: %s", pipelineUrl))
 	return pipelineUrl
 }
@@ -74,8 +75,11 @@ func CreatePipeByExcel(templateIdList []string, projectId, token string) {
 						// 非环境变量参数
 						gudingMap[k] = fmt.Sprint(v)
 					} else {
-						// 环境变量参数
-						envMap[k] = fmt.Sprint(v)
+						//值为空时使用模板环境变量，故不参与自定义环境变量得创建
+						if fmt.Sprint(v) != "" {
+							// 环境变量参数
+							envMap[k] = fmt.Sprint(v)
+						}
 					}
 				}
 				// 创建流水线
