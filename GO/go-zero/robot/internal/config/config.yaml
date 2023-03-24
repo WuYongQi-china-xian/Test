@@ -1,0 +1,7 @@
+ServiceName: "CicdRobot"
+Mode: "file"
+Path: "logs"
+Level: "info"
+Compress: false
+KeepDays: 7
+StackCooldownMillis: 100

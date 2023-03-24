@@ -1,0 +1,22 @@
+type FlyPigeonRequest {
+	MsgType     string `json:"msgType"`
+	ChatType    string `json:"chatType"`
+	MsgContent  string `json:"msgContent"`
+	ChatID      string `json:"chatId"`
+	BotKey      string `json:"botKey"`
+	HookURL     string `json:"hookUrl"`
+	BotName     string `json:"botName"`
+	UserName    string `json:"userName"`
+	MsgID       string `json:"msgId"`
+	ChatInfoURL string `json:"chatInfoUrl"`
+	ResponseURL string `json:"responseUrl"`
+}
+
+type Response {
+	Message string `json:"message"`
+}
+
+service robot-api {
+	@handler RobotHandler
+	post /robot/api/callback(FlyPigeonRequest) returns (Response)
+}
